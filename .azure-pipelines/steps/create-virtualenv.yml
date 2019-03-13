@@ -1,7 +1,8 @@
 steps:
 - script: |
     $env:PY_EXE=(py -"$PIPENV_DEFAULT_PYTHON_VERSION" -c 'import sys; print(sys.executable)')
-    virtualenv --python=$env:PY_EXE D:\.venv
+    echo "Python exe: $env:PY_EXE"
+    virtualenv --python="$env:PY_EXE" D:\.venv
     D:\.venv\Scripts\pip.exe install -e .[test]
     D:\.venv\Scripts\pipenv install --dev
     D:\.venv\Scripts\pipenv run pip install -e .[test]
