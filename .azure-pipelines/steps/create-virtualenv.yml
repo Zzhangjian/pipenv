@@ -1,8 +1,10 @@
 steps:
+- powershell: |
+    Write-Host "##vso[task.setvariable variable=PY_EXE]"(py -"$PIPENV_DEFAULT_PYTHON_VERSION" -c 'import sys; print(sys.executable)')
+
 - script: |
-    $env:PY_EXE=(py -"$PIPENV_DEFAULT_PYTHON_VERSION" -c 'import sys; print(sys.executable)')
-    echo "Python exe: $env:PY_EXE"
-    virtualenv --python="$env:PY_EXE" D:\.venv
+    echo "Python exe: $PY_EXE"
+    virtualenv --python="$PY_EXE" D:\.venv
     D:\.venv\Scripts\pip.exe install -e .[test]
     D:\.venv\Scripts\pipenv install --dev
     D:\.venv\Scripts\pipenv run pip install -e .[test]
